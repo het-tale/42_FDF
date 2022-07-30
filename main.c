@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 05:03:32 by het-tale          #+#    #+#             */
-/*   Updated: 2022/07/28 16:51:42 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/07/30 13:16:27 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char *argv[])
 	//t_mlx	*mlx;
 	int		columns;
 
-	//columns = columns_equality(argv);
+	//columns = columns_equality(get_lines(argv));
 	columns = 0;
 	if (argc == 2)
 	{
@@ -62,25 +62,34 @@ int	main(int argc, char *argv[])
 		// t_color	val;
 		// int	i;
 		// int j;
+		// int lines = count_lines(get_lines(argv));
 		// i = 0;
 		// map = ft_parse_map(argv);
 		// //printf("%d ", map[0][0]);
-		// while (i < count_lines(argv))
+		// while (i < lines)
 		// {
 		// 	j = 0;
-		// 	while (j < columns_equality(argv))
+		// 	while (j < columns)
 		// 	{
 		// 		val = map[i][j];
-		// 		//printf("%d ", val.data);
-		// 		printf("%d ", val.color);
+		// 		printf("%d ", val.data);
+		// 		//printf("%d ", val.color);
 		// 		j++;
 		// 	}
 		// 	printf("\n");
 		// 	i++;
 		// }
 		//traverse_list(get_lines(argv));
-		printf("%d", columns_equality(get_lines(argv)));
+		//printf("%d", columns_equality(get_lines(argv)));
 		//printf("%d", count_columns(get_lines(argv)->head->next->data));
+		//char **split = get_split(get_lines(argv)->head->next->next->data);
+		// int j = 0;
+		// while (split[j])
+		// {
+		// 	printf("%s ", split[j]);
+		// 	j++;
+		// }
+		printf("%d ", columns_equality(get_lines(argv)));
 	}
 	else
 		write(2, "Usage : ./fdf <filename> [ case_size z_size ]\n", 46);

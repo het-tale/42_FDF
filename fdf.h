@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/07/28 16:48:57 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/07/30 14:06:54 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,28 @@ typedef struct s_list
 	t_node	*head;
 }	t_list;
 
+typedef struct s_split
+{
+	char			**data;
+	struct s_split	*next;
+}	t_split;
+
+typedef struct s__split_list
+{
+	t_split	*head;
+}	t_split_list;
+
 int		count_lines(t_list *line);
 t_color	**ft_parse_map(char *argv[]);
-int		count_columns(char *line);
+int		count_len(char *line);
 int		columns_equality(t_list *line);
 void	ddaline(t_point p1, t_point p2, t_mlx *mlx);
 void	draw(char *argv[], t_mlx *mlx);
 int		hex_to_dec(char *hex);
 void	traverse_list(t_list *list);
 t_list	*get_lines(char *argv[]);
+char	**get_split(char *line);
+int		count_columns(char **split_list);
 //to do:change buffer size in gnl
 //to do: check if the columns are equal for each line
 //to do; try manage colors

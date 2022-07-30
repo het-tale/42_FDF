@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 03:03:41 by het-tale          #+#    #+#             */
-/*   Updated: 2022/07/28 16:47:59 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/07/30 14:09:40 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,48 @@ void	push_at_last(t_list *file, t_node *n)
 	}
 }
 
-char	*good_string(char *line)
+t_split	*new_node_split(char **data)
 {
-	char	*split;
+	t_split	*node;
 
-	split = ft_strremove(line);
+	node = malloc(sizeof(t_split));
+	node->data = data;
+	node->next = NULL;
+	return (node);
+}
+
+t_split_list	*new_list_split(void)
+{
+	t_split_list	*list;
+
+	list = malloc(sizeof(t_split_list));
+	list->head = NULL;
+	return (list);
+}
+
+void	push_at_last_split(t_split_list *file, t_split *n)
+{
+	t_split	*temp;
+
+	temp = file->head;
+	if (file->head == NULL)
+		file->head = n;
+	else
+	{
+		while (temp->next)
+		{
+			temp = temp->next;
+		}
+		temp->next = n;
+		n->next = NULL;
+	}
+}
+
+char	**good_string(char *line)
+{
+	char	**split;
+
+	split = ft_split(ft_strremove(line), ' ');
 	return (split);
 }
 
@@ -89,8 +126,6 @@ void	traverse_list(t_list *list)
 	}
 }
 
-
-
 int	count_lines(t_list *line)
 {
 	int		lines;
@@ -106,20 +141,46 @@ int	count_lines(t_list *line)
 	return (lines);
 }
 
-int	count_columns(char *line)
+int	count_len(char *line)
 {
-	int		columns;
 	int		j;
-	char	*split;
+	char	**split;
 
-	columns = 0;
 	j = 0;
 	split = good_string(line);
 	while (split[j])
+		j++;
+	return (j);
+}
+
+char	**get_split(char *line)
+{
+	char	**split;
+	char	**split_list;
+	int		columns;
+	int		j;
+
+	columns = count_len(line);
+	split = good_string(line);
+	split_list = malloc((columns + 1) * sizeof(char *));
+	j = 0;
+	while (split[j])
 	{
-		columns++;
+		split_list[j] = malloc((ft_strlen(split[j]) + 1) * sizeof(char));
+		split_list[j] = split[j];
 		j++;
 	}
+	split_list[j] = 0;
+	return (split_list);
+}
+
+int	count_columns(char **split_list)
+{
+	int	columns;
+
+	columns = 0;
+	while (split_list[columns])
+		columns++;
 	return (columns);
 }
 
@@ -130,6 +191,7 @@ int	columns_equality(t_list *line)
 	int		*arr;
 	int		i;
 	t_node	*temp;
+	char	**split_list;
 
 	i = 0;
 	lines = count_lines(line);
@@ -137,7 +199,8 @@ int	columns_equality(t_list *line)
 	temp = line->head;
 	while (temp)
 	{
-		columns = count_columns(temp->data);
+		split_list = get_split(temp->data);
+		columns = count_columns(split_list);
 		arr[i] = columns;
 		temp = temp->next;
 		i++;
@@ -202,10 +265,7 @@ int	columns_equality(t_list *line)
 // t_color	**ft_parse_map(char *argv[])
 // {
 // 	char	**split;
-// 	int		fd;
-// 	char	*line;
 // 	int		j;
-// 	//int		**map;
 // 	t_color **map;
 // 	t_color	val;
 // 	int		i;
@@ -218,13 +278,11 @@ int	columns_equality(t_list *line)
 // 	line = get_lines(argv);
 // 	temp = line->head;
 // 	lines = count_lines(line);
-// 	columns = columns_equality(line, split);
-// 	//map = malloc(lines * sizeof(int *));
+// 	columns = columns_equality(line);
 // 	map = malloc(lines * sizeof(t_color *));
-// 	while (line)
+// 	while (temp)
 // 	{
-// 		split = good_string(line);
-// 		//map[i] = malloc(columns * sizeof(int));
+// 		split = good_string(temp->data);
 // 		map[i] = malloc(columns * sizeof(t_color));
 // 		j = 0;
 // 		while (split[j])
@@ -234,12 +292,11 @@ int	columns_equality(t_list *line)
 // 				val.color = hex_to_dec(ft_substr(split[j], ft_strchr(split[j], ',') + 3, 6));
 // 			else
 // 				val.color = 0;
-// 			//map[i][j] = ft_atoi(split[j]);
 // 			map[i][j] = val;
 // 			j++;
 // 		}
 // 		i++;
-// 		line = get_next_line(fd);
+// 		temp = temp->next;
 // 	}
 // 	return (map);
 // }
