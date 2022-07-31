@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 03:03:41 by het-tale          #+#    #+#             */
-/*   Updated: 2022/07/30 14:51:42 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/07/31 03:07:02 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,7 @@ int	ft_strchrr(char *s1, char c)
 	return (-1);
 }
 
-t_color	**ft_parse_map(char *argv[])
+t_color	**ft_parse_map(t_map *coord)
 {
 	t_split_list *split_list;
 	int		j;
@@ -288,16 +288,14 @@ t_color	**ft_parse_map(char *argv[])
 	int		i;
 	int		lines;
 	int		columns;
-	t_list	*line;
 	t_split		*temp;
 	char		**split;
 
 	i = 0;
-	line = get_lines(argv);
-	split_list = get_split(line);
+	split_list = coord->split_list;
 	temp = split_list->head;
-	lines = count_lines(line);
-	columns = columns_equality(line, split_list);
+	lines = coord->lines;
+	columns = coord->columns;
 	map = malloc(lines * sizeof(t_color *));
 	while (temp)
 	{

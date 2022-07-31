@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 05:03:32 by het-tale          #+#    #+#             */
-/*   Updated: 2022/07/30 14:59:20 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/07/31 03:13:52 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,39 @@ t_mlx	*init_canvas(void)
 
 	mlx = malloc(sizeof(t_mlx));
 	mlx->mlx = mlx_init();
-	mlx->mlx_win = mlx_new_window(mlx->mlx, 1000, 600, "FDF");
-	mlx->img = mlx_new_image(mlx->mlx, 1000, 600);
+	mlx->mlx_win = mlx_new_window(mlx->mlx, 1000, 800, "FDF");
+	mlx->img = mlx_new_image(mlx->mlx, 1000, 800);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->ll, &mlx->end);
 	return (mlx);
+}
+
+t_map	*init_coordinates(char *argv[])
+{
+	t_map	*coord;
+
+	coord = malloc(sizeof(t_map));
+	coord->line_list = get_lines(argv);
+	coord->split_list = get_split(coord->line_list);
+	coord->lines = count_lines(coord->line_list);
+	coord->columns = columns_equality(coord->line_list, coord->split_list);
+	return (coord);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_mlx	*mlx;
-	int		columns;
+	t_map	*coord;
 
-	columns = columns_equality(get_lines(argv), get_split(get_lines(argv)));
 	if (argc == 2)
 	{
-		if (columns == -1)
+		coord = init_coordinates(argv);
+		if (coord->columns == -1)
 		{
 			write(2, "Found wrong line length. Exiting.\n", 34);
 			ft_exit();
 		}
 		mlx = init_canvas();
+		draw(mlx, coord);
 		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, 0, 0);
 		mlx_key_hook(mlx->mlx_win, destroy_window, mlx);
 		mlx_hook(mlx->mlx_win, 17, 0, ft_exit, mlx);

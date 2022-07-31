@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/07/30 14:43:00 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/07/31 03:08:10 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,8 @@ typedef struct s_point
 	int	x;
 	int	y;
 	int	z;
+	int	color;
 }	t_point;
-
-typedef struct s_map
-{
-	int	lines;
-	int	columns;
-}	t_map;
 
 typedef struct s_draw
 {
@@ -108,12 +103,20 @@ typedef struct s__split_list
 	t_split	*head;
 }	t_split_list;
 
+typedef struct s_map
+{
+	int				lines;
+	int				columns;
+	t_list			*line_list;
+	t_split_list	*split_list;
+}	t_map;
+
 int				count_lines(t_list *line);
-t_color			**ft_parse_map(char *argv[]);
+t_color			**ft_parse_map(t_map *coord);
 int				count_len(char *line);
 int				columns_equality(t_list *line, t_split_list *split_list);
 void			ddaline(t_point p1, t_point p2, t_mlx *mlx);
-void			draw(char *argv[], t_mlx *mlx);
+void			draw(t_mlx *mlx, t_map *coord);
 int				hex_to_dec(char *hex);
 void			traverse_list(t_list *list);
 t_list			*get_lines(char *argv[]);
