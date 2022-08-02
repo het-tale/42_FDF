@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 22:24:26 by het-tale          #+#    #+#             */
-/*   Updated: 2022/07/31 03:08:01 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:01:46 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,31 @@
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 {
 	char	*dst;
-	if (x < 0 || y < 0)
-		return ;
-	dst = data->addr + (y * data->ll + x * (data->bpp / 8));
-	*(unsigned int *)dst = color;
+	if (x >= 0 && x < 1000 && y >= 0 && y < 800)
+	{
+		dst = data->addr + (y * data->ll + x * (data->bpp / 8));
+		*(unsigned int *)dst = color;
+	}
 }
 
-void	isometric(int *x, int *y, int z)
-{
-	int	original_x;
+// void	isometric(int *x, int *y, int z)
+// {
+// 	int	original_x;
 
-	original_x = *x;
-	*x = *x - *y;
-	*y = ((original_x + *y) / 2) - z;
+// 	original_x = *x;
+// 	*x = *x - *y;
+// 	*y = ((original_x + *y) / 2) - z;
+// }
+
+static void iso(int *x, int *y, int z)
+{
+    int previous_x;
+    int previous_y;
+
+    previous_x = *x;
+    previous_y = *y;
+    *x = (previous_x - previous_y) * cos(0.523599);
+    *y = -z + (previous_x + previous_y) * sin(0.523599);
 }
 
 void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
@@ -41,8 +53,8 @@ void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
 	float	x;
 	float	y;
 
-	isometric(&p1.x, &p1.y, p1.z);
-	isometric(&p2.x, &p2.y, p2.z);
+	iso(&p1.x, &p1.y, p1.z);
+	iso(&p2.x, &p2.y, p2.z);
 	dx = abs(p1.x - p2.x);
 	dy = abs(p1.y - p2.y);
 	if (dx > dy)
@@ -56,7 +68,7 @@ void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
 	i = 0;
 	while (i <= steps)
 	{
-		my_mlx_pixel_put(mlx, x, y, 0xFF0000);
+		my_mlx_pixel_put(mlx, x, y, p1.color);
 		x += xinc;
 		y += yinc;
 		i++;
@@ -69,7 +81,7 @@ t_point	init_point(int x, int y, t_color map)
 
 	p.x = (x * 20) + 300;
 	p.y = (y * 20) + 100;
-	p.z = map.data * 20;
+	p.z = map.data * 12;
 	p.color = map.color;
 	return (p);
 }

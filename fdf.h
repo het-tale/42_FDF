@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/07/31 03:08:10 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:56:48 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ t_list			*get_lines(char *argv[]);
 char			**get_split_line(char *line);
 t_split_list	*get_split(t_list *lines);
 int				count_columns(char **split_list);
+int				hex_to_dec(char *hex);
 //to do:change buffer size in gnl
 //to do: check if the columns are equal for each line
 //to do; try manage colors

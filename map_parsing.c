@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 03:03:41 by het-tale          #+#    #+#             */
-/*   Updated: 2022/07/31 03:07:02 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:37:47 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,10 +305,11 @@ t_color	**ft_parse_map(t_map *coord)
 		while (split[j])
 		{
 			val.data = ft_atoi(split[j]);
-			if (ft_strchr(split[j], ',') != -1)
-				val.color = hex_to_dec(ft_substr(split[j], ft_strchr(split[j], ',') + 3, 6));
-			else
-				val.color = 0;
+			if (ft_strchrr(split[j], ',') != -1)
+				val.color = hex_to_dec(ft_substr(split[j], ft_strchrr(split[j], ',') + 3, 6));
+			else {
+				val.color = hex_to_dec("FFFFFF");;
+			}
 			map[i][j] = val;
 			j++;
 		}
