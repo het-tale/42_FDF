@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/02 10:56:48 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/07 01:32:09 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,5 @@ int				hex_to_dec(char *hex);
 //empty file: no data found
 //file not found
 //create function to manage these errors first
+//bonus: make the map appear bigger or smaller
 #endif

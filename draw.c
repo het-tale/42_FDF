@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 22:24:26 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/02 15:01:46 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/07 22:22:31 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 {
 	char	*dst;
-	if (x >= 0 && x < 1000 && y >= 0 && y < 800)
+
+	if (x >= 0 && x < data->win_width && y >= 0 && y < data->win_height) //change width and height
 	{
 		dst = data->addr + (y * data->ll + x * (data->bpp / 8));
 		*(unsigned int *)dst = color;
@@ -33,7 +34,7 @@ void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 
 static void iso(int *x, int *y, int z)
 {
-    int previous_x;
+	int	previous_x;
     int previous_y;
 
     previous_x = *x;
@@ -74,16 +75,50 @@ void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
 		i++;
 	}
 }
-
-t_point	init_point(int x, int y, t_color map)
+/*
+int pixels
 {
-	t_point	p;
+	check the biggest columns vs lines ==> variable to hold the biggest 100 20 ==> 100
+	if > 100 return 5
+}
+*/
+// t_point	init_point(int x, int y, t_color map)
+// {
+// 	t_point	p;
 
-	p.x = (x * 20) + 300;
-	p.y = (y * 20) + 100;
-	p.z = map.data * 12;
-	p.color = map.color;
-	return (p);
+// 	p.x = (x * 6) + 1100; // ===> variable to change it for every map
+// 	p.y = (y * 6) + -500;
+// 	p.z = map.data * 2; //zoom in zoom out
+// 	p.color = map.color;
+// 	return (p);
+// }
+
+t_point    init_point(int x, int y, t_color map, t_mlx *mlx)
+{
+    t_point    p1;
+
+    if (mlx->win_height >= 1000 || mlx->win_width >= 1000)
+    {
+        p1.x = x * 2 + mlx->win_width / 2;
+        p1.y = y * 2 + mlx->win_height / 500;
+        p1.z = map.data * 2;
+        p1.color = map.color;
+    }
+	else if ((mlx->win_height >= 600 || mlx->win_width >= 600) && (mlx->win_height < 100 || mlx->win_width < 1000))
+    {
+        p1.x = x * 3 + mlx->win_width / 2;
+        p1.y = y * 3 + mlx->win_height / 500;
+        p1.z = map.data * 2;
+        p1.color = map.color;
+    }
+    else
+    {
+        p1.x = x * 18 + mlx->win_width / 2;
+        p1.y = y * 18 - 100;
+        p1.z = map.data * 2;
+        p1.color = map.color;
+    }
+    return (p1);
 }
 
 void	draw(t_mlx *mlx, t_map *coord)
@@ -108,14 +143,14 @@ void	draw(t_mlx *mlx, t_map *coord)
 		{
 			if (i != columns - 1)
 			{
-				p1 = init_point(i, j, map[j][i]);
-				p2 = init_point(i + 1, j, map[j][i + 1]);
+				p1 = init_point(i, j, map[j][i], mlx);
+				p2 = init_point(i + 1, j, map[j][i + 1], mlx);
 				ddaline(p1, p2, mlx);
 			}
 			if (j != lines - 1)
 			{
-				p1 = init_point(i, j, map[j][i]);
-				p3 = init_point(i, j + 1, map[j + 1][i]);
+				p1 = init_point(i, j, map[j][i], mlx);
+				p3 = init_point(i, j + 1, map[j + 1][i], mlx);
 				ddaline(p1, p3, mlx);
 			}
 			i++;
