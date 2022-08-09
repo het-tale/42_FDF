@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/09 17:55:38 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/09 21:54:20 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@
 # include <sys/time.h>
 # include <signal.h>
 # include <string.h>
+# include <errno.h>
+# define ESC 53
+# define PLUS_KEY 69
+# define MINUS_KEY 78
+# define RIGHT_KEY 124
+# define LEFT_KEY 123
+# define UP_KEY 126
+# define DOWN_KEY 125
+# define PROJECT 35 //P KEY
+# define ROTATION 15 // R KEY
 
 typedef struct s_mlx
 {
@@ -37,6 +47,7 @@ typedef struct s_mlx
 	char		**av;
 	int			win_width;
 	int			win_height;
+	int			zoom;
 }t_mlx;
 
 typedef struct s_point
@@ -126,13 +137,14 @@ int				count_columns(char **split_list);
 int				hex_to_dec(char *hex);
 int				zoom(int key, int *z);
 int				get_z(t_mlx *mlx);
+int				key_management(int key, t_mlx *mlx);
 //to do:change buffer size in gnl --- Done
 //to do: check if the columns are equal for each line -- Done
 //to do; try manage colors --- Done
-//to do: error management (page correction)
-//empty file: no data found
-//file not found
-//create function to manage these errors first
-//bonus: make the map appear bigger or smaller // Done
+//to do: error management (page correction) //DONE
+//empty file: no data found //DONE
+//file not found //Done
+//create function to manage these errors first //DONE
+//bonus IDEA: make the map appear bigger or smaller
 //upper key : 126 -- lower key : 125 ----- right key : 124 ------ left key : 123
 #endif

@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 05:03:32 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/09 19:13:33 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/09 21:56:58 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_mlx	*init_canvas(t_map *coord)
 
 	mlx = malloc(sizeof(t_mlx));
 	mlx->mlx = mlx_init();
+	mlx->zoom = 0;
 	get_window_coordinates(&mlx->win_width, &mlx->win_height, coord);
 	mlx->mlx_win = mlx_new_window(mlx->mlx, mlx->win_width, mlx->win_height, "my fdf");
 	mlx->img = mlx_new_image(mlx->mlx, mlx->win_width, mlx->win_height);
@@ -71,6 +72,29 @@ t_map	*init_coordinates(char *argv[])
 	return (coord);
 }
 
+void	errors(char *argv[], t_map *coord)
+{
+	int	fd;
+
+	fd = open(argv[1], O_RDONLY);
+	if (coord->columns == -1)
+	{
+		write(2, "Found wrong line length. Exiting.\n", 34);
+		ft_exit();
+	}
+	if (fd < 0)
+	{
+		perror("Error");
+		ft_exit();
+	}
+	close(fd);
+	if (coord->line_list->head == NULL)
+	{
+		write(2, "No data found.\n", 15);
+		ft_exit();
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	t_mlx	*mlx;
@@ -79,15 +103,11 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		coord = init_coordinates(argv);
-		if (coord->columns == -1)
-		{
-			write(2, "Found wrong line length. Exiting.\n", 34);
-			ft_exit();
-		}
+		errors(argv, coord);
 		mlx = init_canvas(coord);
 		draw(mlx, coord);
 		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, 0, 0);
-		mlx_key_hook(mlx->mlx_win, destroy_window, mlx);
+		mlx_key_hook(mlx->mlx_win, key_management, mlx);
 		mlx_hook(mlx->mlx_win, 17, 0, ft_exit, mlx);
 		mlx_loop(mlx->mlx);
 	}

@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 22:24:26 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/09 19:13:10 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/09 21:56:29 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,10 @@ void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
 	}
 }
 
-// int	zoom(int key, int *z)
-// {
-// 	if (key == 126)
-// 		*z += 1;
-// 	else if (key == 125)
-// 		*z -= 1;
-// 	// (void)key;
-// 	// (void)z;
-// 	// printf("hello");
-// 	return (0);
-// }
-
 t_point	init_point(int x, int y, t_color mapi, t_map *map, t_mlx *mlx)
 {
 	t_point	p1;
-	// int		zoom1;
 
-	// zoom1 = 0;
 	if (map->columns <= 50 || map->lines <= 50)
 	{
 		p1.x = x * 12;
@@ -98,9 +84,7 @@ t_point	init_point(int x, int y, t_color mapi, t_map *map, t_mlx *mlx)
 		p1.x = x * 2;
 		p1.y = y * 2;
 	}
-	//mlx_key_hook(mlx->mlx_win, zoom, &zoom1);
-	(void)mlx;
-	p1.z = mapi.data * 2;
+	p1.z = mapi.data * mlx->zoom;
 	p1.color = mapi.color;
 	return (p1);
 }
