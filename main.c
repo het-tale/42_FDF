@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 05:03:32 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/07 22:25:45 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:13:33 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int	ft_exit(void)
 
 void	get_window_coordinates(int *win_width, int *win_height, t_map *map)
 {
-	if (map->columns < 50 || map->lines < 50)
+	if (map->columns <= 50 || map->lines <= 50)
 	{
-		*win_width = (map->columns) * 25;
-		*win_height = (map->lines) * 20;
+		*win_width = (map->columns) * 28;
+		*win_height = (map->lines) * 16;
 	}
-	else if ((map->columns >= 50 || map->lines >= 50) && (map->columns <= 100 || map->lines <= 100))
+	else if ((map->columns > 50 || map->lines > 50) && (map->columns <= 100 || map->lines <= 100))
 	{
 		*win_width = (map->columns) * 6;
 		*win_height = (map->lines) * 6;
@@ -53,7 +53,7 @@ t_mlx	*init_canvas(t_map *coord)
 	mlx = malloc(sizeof(t_mlx));
 	mlx->mlx = mlx_init();
 	get_window_coordinates(&mlx->win_width, &mlx->win_height, coord);
-	mlx->mlx_win = mlx_new_window(mlx->mlx, mlx->win_width, mlx->win_height, "FDF");
+	mlx->mlx_win = mlx_new_window(mlx->mlx, mlx->win_width, mlx->win_height, "my fdf");
 	mlx->img = mlx_new_image(mlx->mlx, mlx->win_width, mlx->win_height);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->ll, &mlx->end);
 	return (mlx);
@@ -85,8 +85,7 @@ int	main(int argc, char *argv[])
 			ft_exit();
 		}
 		mlx = init_canvas(coord);
-		printf("%d %d", coord->columns, coord->lines);
-		//draw(mlx, coord);
+		draw(mlx, coord);
 		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, 0, 0);
 		mlx_key_hook(mlx->mlx_win, destroy_window, mlx);
 		mlx_hook(mlx->mlx_win, 17, 0, ft_exit, mlx);

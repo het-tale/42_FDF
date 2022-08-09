@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/07 01:32:09 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:55:38 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,15 @@ char			**get_split_line(char *line);
 t_split_list	*get_split(t_list *lines);
 int				count_columns(char **split_list);
 int				hex_to_dec(char *hex);
-//to do:change buffer size in gnl
-//to do: check if the columns are equal for each line
-//to do; try manage colors
+int				zoom(int key, int *z);
+int				get_z(t_mlx *mlx);
+//to do:change buffer size in gnl --- Done
+//to do: check if the columns are equal for each line -- Done
+//to do; try manage colors --- Done
 //to do: error management (page correction)
 //empty file: no data found
 //file not found
 //create function to manage these errors first
-//bonus: make the map appear bigger or smaller
+//bonus: make the map appear bigger or smaller // Done
+//upper key : 126 -- lower key : 125 ----- right key : 124 ------ left key : 123
 #endif
