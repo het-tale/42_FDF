@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 22:24:26 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/09 21:56:29 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/10 12:02:18 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ void	draw(t_mlx *mlx, t_map *coord)
 	lines = coord->lines;
 	columns = coord->columns;
 	map = ft_parse_map(coord);
+	mlx->img = mlx_new_image(mlx->mlx, mlx->win_width, mlx->win_height);
+	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->ll, &mlx->end);
 	while (j < lines)
 	{
 		i = 0;
@@ -125,4 +127,5 @@ void	draw(t_mlx *mlx, t_map *coord)
 		}
 		j++;
 	}
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, 0, 0);
 }

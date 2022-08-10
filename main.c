@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 05:03:32 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/09 21:56:58 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/10 12:04:39 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,6 @@ void	get_window_coordinates(int *win_width, int *win_height, t_map *map)
 	}
 }
 
-t_mlx	*init_canvas(t_map *coord)
-{
-	t_mlx	*mlx;
-
-	mlx = malloc(sizeof(t_mlx));
-	mlx->mlx = mlx_init();
-	mlx->zoom = 0;
-	get_window_coordinates(&mlx->win_width, &mlx->win_height, coord);
-	mlx->mlx_win = mlx_new_window(mlx->mlx, mlx->win_width, mlx->win_height, "my fdf");
-	mlx->img = mlx_new_image(mlx->mlx, mlx->win_width, mlx->win_height);
-	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->ll, &mlx->end);
-	return (mlx);
-}
-
 t_map	*init_coordinates(char *argv[])
 {
 	t_map	*coord;
@@ -70,6 +56,19 @@ t_map	*init_coordinates(char *argv[])
 	coord->lines = count_lines(coord->line_list);
 	coord->columns = columns_equality(coord->line_list, coord->split_list);
 	return (coord);
+}
+
+t_mlx	*init_canvas(char *argv[])
+{
+	t_mlx	*mlx;
+
+	mlx = malloc(sizeof(t_mlx));
+	mlx->mlx = mlx_init();
+	mlx->zoom = 0;
+	mlx->coord = init_coordinates(argv);
+	get_window_coordinates(&mlx->win_width, &mlx->win_height, mlx->coord);
+	mlx->mlx_win = mlx_new_window(mlx->mlx, mlx->win_width, mlx->win_height, "my fdf");
+	return (mlx);
 }
 
 void	errors(char *argv[], t_map *coord)
@@ -98,15 +97,12 @@ void	errors(char *argv[], t_map *coord)
 int	main(int argc, char *argv[])
 {
 	t_mlx	*mlx;
-	t_map	*coord;
 
 	if (argc == 2)
 	{
-		coord = init_coordinates(argv);
-		errors(argv, coord);
-		mlx = init_canvas(coord);
-		draw(mlx, coord);
-		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, 0, 0);
+		mlx = init_canvas(argv);
+		errors(argv, mlx->coord);
+		draw(mlx, mlx->coord);
 		mlx_key_hook(mlx->mlx_win, key_management, mlx);
 		mlx_hook(mlx->mlx_win, 17, 0, ft_exit, mlx);
 		mlx_loop(mlx->mlx);

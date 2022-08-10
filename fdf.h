@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/09 21:54:20 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/10 11:59:10 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,36 @@
 # define PROJECT 35 //P KEY
 # define ROTATION 15 // R KEY
 
+typedef struct s_node
+{
+	char			*data;
+	struct s_node	*next;
+}	t_node;
+
+typedef struct s_list
+{
+	t_node	*head;
+}	t_list;
+
+typedef struct s_split
+{
+	char			**data;
+	struct s_split	*next;
+}	t_split;
+
+typedef struct s__split_list
+{
+	t_split	*head;
+}	t_split_list;
+
+typedef struct s_map
+{
+	int				lines;
+	int				columns;
+	t_list			*line_list;
+	t_split_list	*split_list;
+}	t_map;
+
 typedef struct s_mlx
 {
 	void		*mlx;
@@ -48,6 +78,7 @@ typedef struct s_mlx
 	int			win_width;
 	int			win_height;
 	int			zoom;
+	t_map		*coord;
 }t_mlx;
 
 typedef struct s_point
@@ -91,36 +122,6 @@ typedef struct s_color
 	int	data;
 	int	color;
 }	t_color;
-
-typedef struct s_node
-{
-	char			*data;
-	struct s_node	*next;
-}	t_node;
-
-typedef struct s_list
-{
-	t_node	*head;
-}	t_list;
-
-typedef struct s_split
-{
-	char			**data;
-	struct s_split	*next;
-}	t_split;
-
-typedef struct s__split_list
-{
-	t_split	*head;
-}	t_split_list;
-
-typedef struct s_map
-{
-	int				lines;
-	int				columns;
-	t_list			*line_list;
-	t_split_list	*split_list;
-}	t_map;
 
 int				count_lines(t_list *line);
 t_color			**ft_parse_map(t_map *coord);
