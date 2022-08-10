@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 22:24:26 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/10 12:02:18 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:21:53 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,31 @@ void	isometric(int *x, int *y, int z)
 
 void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
 {
-	int		dx;
-	int		dy;
-	int		steps;
-	int		i;
-	float	xinc;
-	float	yinc;
-	float	x;
-	float	y;
+	t_dda	*dda;
 
 	isometric(&p1.x, &p1.y, p1.z);
 	isometric(&p2.x, &p2.y, p2.z);
-	dx = abs(p1.x - p2.x);
-	dy = abs(p1.y - p2.y);
-	if (dx > dy)
-		steps = dx;
+	dda = malloc(sizeof(t_dda));
+	dda->dx = abs(p1.x - p2.x);
+	dda->dy = abs(p1.y - p2.y);
+	
+	if (dda->dx > dda->dy)
+		dda->steps = dda->dx;
 	else
-		steps = dy;
-	xinc = (p2.x - p1.x) / (float) steps;
-	yinc = (p2.y - p1.y) / (float) steps;
-	x = p1.x;
-	y = p1.y;
-	i = 0;
-	while (i <= steps)
+		dda->steps = dda->dy;
+	dda->xinc = (p2.x - p1.x) / (float) dda->steps;
+	dda->yinc = (p2.y - p1.y) / (float) dda->steps;
+	dda->x = p1.x;
+	dda->y = p1.y;
+	dda->i = 0;
+	while (dda->i <= dda->steps)
 	{
-		my_mlx_pixel_put(mlx, x + (mlx->win_width / 2), y + (mlx->win_height / 500), p1.color);
-		x += xinc;
-		y += yinc;
-		i++;
+		//dda->start_x = ;
+		//dda->start_x = ;
+		my_mlx_pixel_put(mlx, dda->x +(mlx->win_width / 2), dda->y + (mlx->win_height / 500), p1.color);
+		dda->x += dda->xinc;
+		dda->y += dda->yinc;
+		dda->i++;
 	}
 }
 

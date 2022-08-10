@@ -6,230 +6,21 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 03:03:41 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/02 11:37:47 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:13:20 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_node	*new_node(char *data)
+int	hex_utils(char hex, int asc, int *base)
 {
-	t_node	*node;
+	int	decimal;
+	int	b;
 
-	node = malloc(sizeof(t_node));
-	node->data = data;
-	node->next = NULL;
-	return (node);
-}
-
-t_list	*new_list(void)
-{
-	t_list	*list;
-
-	list = malloc(sizeof(t_list));
-	list->head = NULL;
-	return (list);
-}
-
-void	push_at_last(t_list *file, t_node *n)
-{
-	t_node	*temp;
-
-	temp = file->head;
-	if (file->head == NULL)
-		file->head = n;
-	else
-	{
-		while (temp->next)
-		{
-			temp = temp->next;
-		}
-		temp->next = n;
-		n->next = NULL;
-	}
-}
-
-t_split	*new_node_split(char **data)
-{
-	t_split	*node;
-
-	node = malloc(sizeof(t_split));
-	node->data = data;
-	node->next = NULL;
-	return (node);
-}
-
-t_split_list	*new_list_split(void)
-{
-	t_split_list	*list;
-
-	list = malloc(sizeof(t_split_list));
-	list->head = NULL;
-	return (list);
-}
-
-void	push_at_last_split(t_split_list *file, t_split *n)
-{
-	t_split	*temp;
-
-	temp = file->head;
-	if (file->head == NULL)
-		file->head = n;
-	else
-	{
-		while (temp->next)
-		{
-			temp = temp->next;
-		}
-		temp->next = n;
-		n->next = NULL;
-	}
-}
-
-char	**good_string(char *line)
-{
-	char	**split;
-
-	split = ft_split(ft_strremove(line), ' ');
-	return (split);
-}
-
-t_list	*get_lines(char *argv[])
-{
-	int		fd;
-	char	*line;
-	t_list	*list;
-	t_node	*n;
-
-	fd = open(argv[1], O_RDONLY);
-	line = get_next_line(fd);
-	list = new_list();
-	while (line)
-	{
-		n = new_node(line);
-		push_at_last(list, n);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	return (list);
-}
-
-void	traverse_list(t_list *list)
-{
-	t_node	*temp;
-
-	temp = list->head;
-	while (temp)
-	{
-		printf("%s", temp->data);
-		temp = temp->next;
-	}
-}
-
-int	count_lines(t_list *line)
-{
-	int		lines;
-	t_node	*temp;
-
-	lines = 0;
-	temp = line->head;
-	while (temp)
-	{
-		lines++;
-		temp = temp->next;
-	}
-	return (lines);
-}
-
-int	count_len(char *line)
-{
-	int		j;
-	char	**split;
-
-	j = 0;
-	split = good_string(line);
-	while (split[j])
-		j++;
-	return (j);
-}
-
-char	**get_split_line(char *line)
-{
-	char	**split;
-	char	**split_list;
-	int		columns;
-	int		j;
-
-	columns = count_len(line);
-	split = good_string(line);
-	split_list = malloc((columns + 1) * sizeof(char *));
-	j = 0;
-	while (split[j])
-	{
-		split_list[j] = malloc((ft_strlen(split[j]) + 1) * sizeof(char));
-		split_list[j] = split[j];
-		j++;
-	}
-	split_list[j] = 0;
-	return (split_list);
-}
-
-t_split_list	*get_split(t_list *lines)
-{
-	t_split_list	*split_list;
-	t_node			*temp;
-	t_split			*n;
-	char			**split;
-
-	temp = lines->head;
-	split_list = new_list_split();
-	while (temp)
-	{
-		split = get_split_line(temp->data);
-		n = new_node_split(split);
-		push_at_last_split(split_list, n);
-		temp = temp->next;
-	}
-	return (split_list);
-}
-
-int	count_columns(char **split_list)
-{
-	int	columns;
-
-	columns = 0;
-	while (split_list[columns])
-		columns++;
-	return (columns);
-}
-
-int	columns_equality(t_list *line, t_split_list *split_list)
-{
-	int		columns;
-	int		lines;
-	int		*arr;
-	int		i;
-	t_split	*temp;
-
-	i = 0;
-	lines = count_lines(line);
-	arr = malloc(lines * sizeof(int));
-	temp = split_list->head;
-	while (temp)
-	{
-		columns = count_columns(temp->data);
-		arr[i] = columns;
-		temp = temp->next;
-		i++;
-	}
-	i = 0;
-	while (i < lines - 1)
-	{
-		if (arr[i] != arr[i + 1])
-			return (-1);
-		i++;
-	}
-	return (columns);
+	b = *base;
+	decimal = (hex - asc) * b;
+	*base *= 16;
+	return (decimal);
 }
 
 int	hex_to_dec(char *hex)
@@ -244,20 +35,11 @@ int	hex_to_dec(char *hex)
 	while (i >= 0)
 	{
 		if (hex[i] >= '0' && hex[i] <= '9')
-		{
-			dec += (hex[i] - 48) * base;
-			base *= 16;
-		}
+			dec += hex_utils(hex[i], 48, &base);
 		else if (hex[i] >= 'A' && hex[i] <= 'F')
-		{
-			dec += (hex[i] - 55) * base;
-			base *= 16;
-		}
+			dec += hex_utils(hex[i], 55, &base);
 		else if (hex[i] >= 'a' && hex[i] <= 'f')
-		{
-			dec += (hex[i] - 87) * base;
-			base *= 16;
-		}
+			dec += hex_utils(hex[i], 87, &base);
 		i--;
 	}
 	return (dec);
@@ -279,42 +61,45 @@ int	ft_strchrr(char *s1, char c)
 	return (-1);
 }
 
-t_color	**ft_parse_map(t_map *coord)
+t_parse	*init_pars(t_map *coord)
 {
-	t_split_list *split_list;
-	int		j;
-	t_color **map;
-	t_color	val;
-	int		i;
-	int		lines;
-	int		columns;
-	t_split		*temp;
-	char		**split;
+	t_parse	*prs;
 
-	i = 0;
-	split_list = coord->split_list;
-	temp = split_list->head;
-	lines = coord->lines;
-	columns = coord->columns;
-	map = malloc(lines * sizeof(t_color *));
-	while (temp)
+	prs = malloc(sizeof(t_parse));
+	prs->i = 0;
+	prs->split_list = coord->split_list;
+	prs->temp = prs->split_list->head;
+	prs->lines = coord->lines;
+	prs->columns = coord->columns;
+	prs->map = malloc(prs->lines * sizeof(t_color *));
+	return (prs);
+}
+
+void	parse_utils(t_parse *prs)
+{
+	char	*substr;
+	int		in;
+
+	while (prs->temp)
 	{
-		map[i] = malloc(columns * sizeof(t_color));
-		split = temp->data;
-		j = 0;
-		while (split[j])
+		prs->map[prs->i] = malloc(prs->columns * sizeof(t_color));
+		prs->split = prs->temp->data;
+		prs->j = 0;
+		while (prs->split[prs->j])
 		{
-			val.data = ft_atoi(split[j]);
-			if (ft_strchrr(split[j], ',') != -1)
-				val.color = hex_to_dec(ft_substr(split[j], ft_strchrr(split[j], ',') + 3, 6));
-			else {
-				val.color = hex_to_dec("FFFFFF");;
+			prs->val.data = ft_atoi(prs->split[prs->j]);
+			if (ft_strchrr(prs->split[prs->j], ',') != -1)
+			{
+				in = ft_strchrr(prs->split[prs->j], ',');
+				substr = ft_substr(prs->split[prs->j], in + 3, 6);
+				prs->val.color = hex_to_dec(substr);
 			}
-			map[i][j] = val;
-			j++;
+			else
+				prs->val.color = hex_to_dec("FFFFFF");
+			prs->map[prs->i][prs->j] = prs->val;
+			prs->j++;
 		}
-		i++;
-		temp = temp->next;
+		prs->i++;
+		prs->temp = prs->temp->next;
 	}
-	return (map);
 }
