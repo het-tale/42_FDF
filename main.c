@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 05:03:32 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/10 12:51:00 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/11 22:42:02 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int argc, char *argv[])
 	{
 		mlx = init_canvas(argv);
 		errors(argv, mlx->coord);
-		draw(mlx, mlx->coord);
+		draw(mlx);
 		mlx_key_hook(mlx->mlx_win, key_management, mlx);
 		mlx_hook(mlx->mlx_win, 17, 0, ft_exit, mlx);
 		mlx_loop(mlx->mlx);

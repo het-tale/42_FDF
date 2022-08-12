@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 12:53:22 by het-tale          #+#    #+#             */
-/*   Updated: 2022/07/28 12:16:27 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/12 22:59:47 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ char	*ft_cpy(char *str, int *i, int *j);
 char	*ft_strremove(const char *s1);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int     ft_atoi(char *str);
+int		ft_atoi(char *str);
 #endif

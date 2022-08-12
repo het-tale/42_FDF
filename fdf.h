@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/10 14:18:50 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/12 22:57:48 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,26 +89,21 @@ typedef struct s_point
 	int	color;
 }	t_point;
 
-typedef struct s_draw
-{
-	int		j;
-	int		i;
-	int		lines;
-	int		columns;
-	int		**map;
-	t_point	p1;
-	t_point	p2;
-	t_point	p3;
-	int		z1;
-	int		z2;
-	int		z3;
-}	t_draw;
-
 typedef struct s_color
 {
 	int	data;
 	int	color;
 }	t_color;
+
+typedef struct s_draw
+{
+	t_color	**map;
+	int		lines;
+	int		columns;
+	t_point	p1;
+	t_point	p2;
+	t_point	p3;
+}	t_draw;
 
 typedef struct s_parse
 {
@@ -137,7 +132,6 @@ typedef struct s_dda
 	float	start_y;
 }	t_dda;
 
-
 int				count_lines(t_list *line);
 t_color			**ft_parse_map(t_map *coord);
 int				count_len(char *line);
@@ -146,7 +140,7 @@ void			get_window_coordinates(int *width, int *height, t_map *map);
 t_map			*init_coordinates(char *argv[]);
 t_mlx			*init_canvas(char *argv[]);
 void			ddaline(t_point p1, t_point p2, t_mlx *mlx);
-void			draw(t_mlx *mlx, t_map *coord);
+void			draw(t_mlx *mlx);
 //parsing
 t_node			*new_node(char *data);
 t_list			*new_list(void);
@@ -167,6 +161,9 @@ int				get_z(t_mlx *mlx);
 int				key_management(int key, t_mlx *mlx);
 void			parse_utils(t_parse *prs);
 t_parse			*init_pars(t_map *coord);
+void			my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
+void			isometric(int *x, int *y, int z);
+void			ddaline(t_point p1, t_point p2, t_mlx *mlx);
 //to do:change buffer size in gnl --- Done
 //to do: check if the columns are equal for each line -- Done
 //to do; try manage colors --- Done
