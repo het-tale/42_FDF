@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 22:24:26 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/12 22:56:58 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/13 00:56:13 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,5 @@ void	draw(t_mlx *mlx)
 		}
 		j++;
 	}
-	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, mlx->tx, mlx->ty);
 }

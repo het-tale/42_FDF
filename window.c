@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:18:20 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/10 12:23:17 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/13 00:57:27 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ t_mlx	*init_canvas(char *argv[])
 	mlx = malloc(sizeof(t_mlx));
 	mlx->mlx = mlx_init();
 	mlx->zoom = 0;
+	mlx->tx = 0;
+	mlx->ty = 0;
+	mlx->iso = 0;
 	mlx->coord = init_coordinates(argv);
 	get_window_coordinates(&mlx->win_width, &mlx->win_height, mlx->coord);
 	win_width = mlx->win_width;

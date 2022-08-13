@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/12 22:57:48 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/13 00:59:19 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,14 @@ typedef struct s_map
 	t_split_list	*split_list;
 }	t_map;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+	int	z;
+	int	color;
+}	t_point;
+
 typedef struct s_mlx
 {
 	void		*mlx;
@@ -78,16 +86,11 @@ typedef struct s_mlx
 	int			win_width;
 	int			win_height;
 	int			zoom;
+	int			tx;
+	int			ty;
 	t_map		*coord;
+	int			iso;
 }t_mlx;
-
-typedef struct s_point
-{
-	int	x;
-	int	y;
-	int	z;
-	int	color;
-}	t_point;
 
 typedef struct s_color
 {
@@ -164,13 +167,5 @@ t_parse			*init_pars(t_map *coord);
 void			my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
 void			isometric(int *x, int *y, int z);
 void			ddaline(t_point p1, t_point p2, t_mlx *mlx);
-//to do:change buffer size in gnl --- Done
-//to do: check if the columns are equal for each line -- Done
-//to do; try manage colors --- Done
-//to do: error management (page correction) //DONE
-//empty file: no data found //DONE
-//file not found //Done
-//create function to manage these errors first //DONE
-//bonus IDEA: make the map appear bigger or smaller
-//upper key : 126 -- lower key : 125 ----- right key : 124 ------ left key : 123
+void			projection(t_point *p1, t_point *p2);
 #endif

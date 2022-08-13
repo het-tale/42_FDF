@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 22:56:10 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/12 22:58:34 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/13 00:53:50 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
 {
 	t_dda	*dda;
 
-	isometric(&p1.x, &p1.y, p1.z);
-	isometric(&p2.x, &p2.y, p2.z);
+	if (mlx->iso == 1)
+		projection(&p1, &p2);
 	dda = malloc(sizeof(t_dda));
 	dda->dx = abs(p1.x - p2.x);
 	dda->dy = abs(p1.y - p2.y);
