@@ -6,13 +6,13 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/13 00:59:19 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/13 15:24:49 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# include "gnl/get_next_line.h"
+# include "../parsing/gnl/get_next_line.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <unistd.h>
@@ -34,6 +34,8 @@
 # define DOWN_KEY 125
 # define PROJECT 35 //P KEY
 # define ROTATION 15 // R KEY
+# define Z_IN 34
+# define Z_OUT 31
 
 typedef struct s_node
 {
@@ -73,6 +75,13 @@ typedef struct s_point
 	int	color;
 }	t_point;
 
+typedef struct s_zoom
+{
+	int	s;
+	int	m;
+	int	l;	
+}	t_zoom;
+
 typedef struct s_mlx
 {
 	void		*mlx;
@@ -90,6 +99,7 @@ typedef struct s_mlx
 	int			ty;
 	t_map		*coord;
 	int			iso;
+	t_zoom		*size;
 }t_mlx;
 
 typedef struct s_color

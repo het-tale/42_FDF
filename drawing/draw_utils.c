@@ -6,11 +6,11 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 22:56:10 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/13 00:53:50 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/13 15:23:24 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 {
@@ -36,7 +36,7 @@ void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
 {
 	t_dda	*dda;
 
-	if (mlx->iso == 1)
+	if (mlx->iso != 1)
 		projection(&p1, &p2);
 	dda = malloc(sizeof(t_dda));
 	dda->dx = abs(p1.x - p2.x);

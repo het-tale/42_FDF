@@ -6,11 +6,11 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 03:03:41 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/13 00:04:23 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/13 15:30:51 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 int	hex_utils(char hex, int asc, int *base)
 {
@@ -48,10 +48,8 @@ int	hex_to_dec(char *hex)
 int	ft_strchrr(char *s1, char c)
 {
 	int	i;
-	int	d;
 
 	i = 0;
-	d = 0;
 	while (s1[i] != '\0')
 	{
 		if (s1[i] == c)

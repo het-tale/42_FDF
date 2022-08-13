@@ -6,11 +6,11 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:18:20 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/13 00:57:27 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/13 15:23:24 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 void	get_window_coordinates(int *win_width, int *win_height, t_map *map)
 {
@@ -48,6 +48,17 @@ t_map	*init_coordinates(char *argv[])
 	return (coord);
 }
 
+t_zoom	*init_zoom(void)
+{
+	t_zoom	*zooom;
+
+	zooom = malloc(sizeof(t_zoom));
+	zooom->s = 12;
+	zooom->m = 4;
+	zooom->l = 2;
+	return (zooom);
+}
+
 t_mlx	*init_canvas(char *argv[])
 {
 	t_mlx	*mlx;
@@ -60,6 +71,7 @@ t_mlx	*init_canvas(char *argv[])
 	mlx->tx = 0;
 	mlx->ty = 0;
 	mlx->iso = 0;
+	mlx->size = init_zoom();
 	mlx->coord = init_coordinates(argv);
 	get_window_coordinates(&mlx->win_width, &mlx->win_height, mlx->coord);
 	win_width = mlx->win_width;

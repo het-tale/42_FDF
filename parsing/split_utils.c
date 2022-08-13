@@ -6,11 +6,11 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:31:10 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/10 12:36:36 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/13 15:23:24 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 t_split	*new_node_split(char **data)
 {
