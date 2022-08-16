@@ -6,7 +6,7 @@
 #    By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/16 02:44:46 by het-tale          #+#    #+#              #
-#    Updated: 2022/08/16 03:22:44 by het-tale         ###   ########.fr        #
+#    Updated: 2022/08/16 03:25:01 by het-tale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CC        =    gcc
 all : $(NAME)
 
 $(NAME) : $(SRCS)
-	$(CC) $(FLAGS) $(SRCS) -o $(NAME)
+	$(CC) $(FLAGS) $(SRCS) -o $(NAME) -g
 
 clean :
 	${RM} ${OBJCT}

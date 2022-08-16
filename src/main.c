@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 05:03:32 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/16 03:22:26 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/16 04:58:25 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	main(int argc, char *argv[])
 		mlx_key_hook(mlx->mlx_win, key_management, mlx);
 		mlx_hook(mlx->mlx_win, 17, 0, ft_exit, mlx);
 		mlx_loop(mlx->mlx);
+		free(mlx);
 	}
 	else
 		write(2, "Usage : ./fdf <filename> [ case_size z_size ]\n", 46);

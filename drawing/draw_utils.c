@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 22:56:10 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/13 15:23:24 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/16 04:50:52 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,5 @@ void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
 		dda->y += dda->yinc;
 		dda->i++;
 	}
+	free(dda);
 }
