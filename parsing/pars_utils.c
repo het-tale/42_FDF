@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:37:23 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/13 15:23:24 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/16 01:49:35 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 char	**good_string(char *line)
 {
 	char	**split;
+	char	*remove;
 
-	split = ft_split(ft_strremove(line), ' ');
+	remove = ft_strremove(line);
+	split = ft_split(remove, ' ');
+	free(remove);
 	return (split);
 }
 
@@ -28,7 +31,11 @@ int	count_len(char *line)
 	j = 0;
 	split = good_string(line);
 	while (split[j])
+	{
+		free(split[j]);
 		j++;
+	}
+	free(split);
 	return (j);
 }
 

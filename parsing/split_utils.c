@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:31:10 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/13 15:23:24 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/16 03:05:16 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ char	**get_split_line(char *line)
 	{
 		split_list[j] = malloc((ft_strlen(split[j]) + 1) * sizeof(char));
 		split_list[j] = split[j];
+		free(split[j]);
 		j++;
 	}
 	split_list[j] = 0;
+	free(split);
 	return (split_list);
 }
 
