@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 22:56:10 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/16 04:50:52 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:46:32 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ void	isometric(int *x, int *y, int z)
 	*y = ((original_x + *y) / 2) - z;
 }
 
-void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
+t_dda	*init_dda(t_point p1, t_point p2)
 {
 	t_dda	*dda;
 
-	if (mlx->iso != 1)
-		projection(&p1, &p2);
 	dda = malloc(sizeof(t_dda));
 	dda->dx = abs(p1.x - p2.x);
 	dda->dy = abs(p1.y - p2.y);
@@ -50,6 +48,16 @@ void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
 	dda->x = p1.x;
 	dda->y = p1.y;
 	dda->i = 0;
+	return (dda);
+}
+
+void	ddaline(t_point p1, t_point p2, t_mlx *mlx)
+{
+	t_dda	*dda;
+
+	if (mlx->iso != 1)
+		projection(&p1, &p2);
+	dda = init_dda(p1, p2);
 	while (dda->i <= dda->steps)
 	{
 		dda->start_x = dda->x + (mlx->win_width / 2);

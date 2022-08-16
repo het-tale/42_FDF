@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 22:24:26 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/16 04:48:26 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:08:28 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ t_draw	*init_draw(t_mlx *mlx)
 	draw = malloc(sizeof(t_draw));
 	draw->lines = mlx->coord->lines;
 	draw->columns = mlx->coord->columns;
-	draw->map = ft_parse_map(mlx->coord);
+	draw->prs = ft_parse_map(mlx->coord);
+	draw->map = draw->prs->map;
 	mlx->img = mlx_new_image(mlx->mlx, mlx->win_width, mlx->win_height);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->ll, &mlx->end);
 	return (draw);
@@ -55,6 +56,21 @@ void	draw_point(int i, int j, t_draw *draw, t_mlx *mlx)
 	draw->p1 = init_point(i, j, draw->map[j][i], mlx);
 	draw->p2 = init_point(i + 1, j, draw->map[j][i + 1], mlx);
 	ddaline(draw->p1, draw->p2, mlx);
+}
+
+void	ft_free(t_draw *draw)
+{
+	int	i;
+
+	i = 0;
+	while (i < draw->lines)
+	{
+		free(draw->map[i]);
+		i++;
+	}
+	free(draw->prs);
+	free(draw->map);
+	free(draw);
 }
 
 void	draw(t_mlx *mlx)
@@ -82,6 +98,6 @@ void	draw(t_mlx *mlx)
 		}
 		j++;
 	}
-	free(draw);
+	ft_free(draw);
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, mlx->tx, mlx->ty);
 }

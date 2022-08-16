@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:09:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/13 15:24:49 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:59:55 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@
 # define Z_IN 34
 # define Z_OUT 31
 
-typedef struct s_node
+typedef struct s_node	t_node;
+
+struct s_node
 {
-	char			*data;
-	struct s_node	*next;
-}	t_node;
+	char	*data;
+	t_node	*next;
+};
 
 typedef struct s_list
 {
@@ -108,16 +110,6 @@ typedef struct s_color
 	int	color;
 }	t_color;
 
-typedef struct s_draw
-{
-	t_color	**map;
-	int		lines;
-	int		columns;
-	t_point	p1;
-	t_point	p2;
-	t_point	p3;
-}	t_draw;
-
 typedef struct s_parse
 {
 	t_split_list	*split_list;
@@ -130,6 +122,17 @@ typedef struct s_parse
 	t_split			*temp;
 	char			**split;
 }	t_parse;
+
+typedef struct s_draw
+{
+	t_color	**map;
+	int		lines;
+	int		columns;
+	t_point	p1;
+	t_point	p2;
+	t_point	p3;
+	t_parse	*prs;
+}	t_draw;
 
 typedef struct s_dda
 {
@@ -146,7 +149,7 @@ typedef struct s_dda
 }	t_dda;
 
 int				count_lines(t_list *line);
-t_color			**ft_parse_map(t_map *coord);
+t_parse			*ft_parse_map(t_map *coord);
 int				count_len(char *line);
 int				columns_equality(t_list *line, t_split_list *split_list);
 void			get_window_coordinates(int *width, int *height, t_map *map);

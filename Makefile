@@ -6,13 +6,13 @@
 #    By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/16 02:44:46 by het-tale          #+#    #+#              #
-#    Updated: 2022/08/16 03:25:01 by het-tale         ###   ########.fr        #
+#    Updated: 2022/08/16 17:00:49 by het-tale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME    =    fdf
 
-SRCS    =    parsing/lines.c parsing/map_parsing.c parsing/pars_utils.c parsing/split_utils.c parsing/gnl/ft_atoi.c parsing/gnl/ft_split.c parsing/gnl/ft_strremove.c parsing/gnl/ft_substr.c \
+SRCS    =    parsing/lines.c parsing/map_parsing.c parsing/pars_utils.c parsing/split_utils.c parsing/pars_utils2.c parsing/gnl/ft_atoi.c parsing/gnl/ft_split.c parsing/gnl/ft_strremove.c parsing/gnl/ft_substr.c \
 			parsing/gnl/get_next_line.c parsing/gnl/get_next_line_utils.c src/keys.c src/main.c drawing/draw_utils.c drawing/draw.c drawing/window.c
 
 OBJCT    =    ${SRCS:.c=.o}
