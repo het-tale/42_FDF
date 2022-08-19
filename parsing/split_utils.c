@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:31:10 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/16 16:39:17 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:26:17 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,6 @@ void	push_at_last_split(t_split_list *file, t_split *n)
 	}
 }
 
-char	**get_split_line(char *line)
-{
-	char	**split;
-	char	**split_list;
-	int		columns;
-	int		j;
-
-	columns = count_len(line);
-	split = good_string(line);
-	split_list = malloc((columns + 1) * sizeof(char *));
-	j = 0;
-	while (split[j])
-	{
-		split_list[j] = split[j];
-		j++;
-	}
-	split_list[j] = 0;
-	free(split);
-	return (split_list);
-}
-
 t_split_list	*get_split(t_list *lines)
 {
 	t_split_list	*split_list;
@@ -81,7 +60,7 @@ t_split_list	*get_split(t_list *lines)
 	split_list = new_list_split();
 	while (temp)
 	{
-		split = get_split_line(temp->data);
+		split = good_string(temp->data);
 		n = new_node_split(split);
 		push_at_last_split(split_list, n);
 		temp = temp->next;

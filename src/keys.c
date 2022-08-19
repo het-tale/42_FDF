@@ -6,7 +6,7 @@
 /*   By: het-tale <het-tale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 21:48:34 by het-tale          #+#    #+#             */
-/*   Updated: 2022/08/13 15:23:24 by het-tale         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:25:47 by het-tale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	key_management_utils(int key, t_mlx *mlx)
 			mlx->iso = 0;
 	}
 	else if (key == Z_OUT)
-		zoom_out(mlx->size);
-	else if (key == Z_IN)
 		zoom_in(mlx->size);
+	else if (key == Z_IN)
+		zoom_out(mlx->size);
 }
 
 int	key_management(int key, t_mlx *mlx)
